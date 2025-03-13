@@ -6,11 +6,14 @@ enum PlayerMode {small, big, shooting}
 @onready var animacao: AnimatedSprite2D = $Animacao
 @onready var body_colisao: CollisionShape2D = $BodyColisao
 @onready var area_colisao: CollisionShape2D = $Area2D/AreaColisao
+@onready var animated_sprite_2d = $Animacao as PlayerAnimatedSprite
 
 @export_group("locomotion")
 @export var run_speed_damping = 0.5
 @export var speed = 150
 @export var jump_velocity = -350
+
+var player_mode = PlayerMode.small
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -31,5 +34,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = lerp(velocity.x, speed * direction, run_speed_damping * delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed *  delta)
+	
+	animated_sprite_2d.trigger_animation(velocity, direction, player_mode)
 	
 	move_and_slide()
