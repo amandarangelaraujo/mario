@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://cyquoidtt83d7"]
+[gd_scene load_steps=7 format=3 uid="uid://cyquoidtt83d7"]
 
+[ext_resource type="Script" path="res://Cenas/Enemy.gd" id="1_e4an2"]
 [ext_resource type="Texture2D" uid="uid://d0n6srd2hrk0i" path="res://Assets Super Mario Bros/Sprites/Koopa_Shell.png" id="1_lvxq1"]
 [ext_resource type="Texture2D" uid="uid://rq2r08kewwlo" path="res://Assets Super Mario Bros/Sprites/Koopa_Walk1.png" id="2_7fsag"]
 [ext_resource type="Texture2D" uid="uid://b2q1ddi7o0ef" path="res://Assets Super Mario Bros/Sprites/Koopa_Walk2.png" id="3_07co0"]
@@ -30,6 +31,7 @@ animations = [{
 size = Vector2(20, 14)
 
 [node name="Koopa" type="Area2D"]
+script = ExtResource("1_e4an2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_petm6")
