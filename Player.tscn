@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://744hr15pnlib"]
+[gd_scene load_steps=28 format=3 uid="uid://lcghwtmojqnn"]
 
 [ext_resource type="Script" path="res://Cenas/player.gd" id="1_rsu7v"]
 [ext_resource type="Texture2D" uid="uid://ct8uqpacoxaq1" path="res://Assets Super Mario Bros/Sprites/Mario_Big_Idle.png" id="2_21qdd"]

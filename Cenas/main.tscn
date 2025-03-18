@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=4 uid="uid://cslsv3e3d203y"]
+[gd_scene load_steps=13 format=4 uid="uid://dnnhwhjncfdrw"]
 
 [ext_resource type="Texture2D" uid="uid://bh2i2pbd72n30" path="res://Assets Super Mario Bros/Sprites/GroundBlock.png" id="1_1n2rx"]
 [ext_resource type="Texture2D" uid="uid://8as4lix1a8pr" path="res://Assets Super Mario Bros/Sprites/HardBlock.png" id="2_eum7u"]
 [ext_resource type="Texture2D" uid="uid://dbhkvad8kmca" path="res://Assets Super Mario Bros/Sprites/UndergroundBlock.png" id="3_cwv00"]
 [ext_resource type="Texture2D" uid="uid://dtkrgfs1x5qrr" path="res://Assets Super Mario Bros/Sprites/UndergroundBrick.png" id="4_g7x0b"]
-[ext_resource type="PackedScene" uid="uid://lcghwtmojqnn" path="res://Cenas/Player.tscn" id="5_ysv62"]
+[ext_resource type="PackedScene" uid="uid://744hr15pnlib" path="res://Cenas/Player.tscn" id="5_ysv62"]
+[ext_resource type="PackedScene" path="res://koopa.tscn" id="6_ov0lu"]
+[ext_resource type="PackedScene" uid="uid://38h1qum7f1sw" path="res://goomba.tscn" id="7_a0urc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2ws8p"]
 texture = ExtResource("1_1n2rx")
@@ -45,3 +47,11 @@ position = Vector2(-181, 56)
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(181, -56)
 zoom = Vector2(2.75, 2.75)
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Koopa" parent="Enemies" instance=ExtResource("6_ov0lu")]
+position = Vector2(-52, 52)
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("7_a0urc")]
+position = Vector2(104, 56)
