@@ -272,7 +272,7 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 6
+collision_mask = 22
 script = ExtResource("1_rsu7v")
 
 [node name="Animacao" type="AnimatedSprite2D" parent="."]
@@ -281,7 +281,7 @@ animation = &"small_death"
 script = ExtResource("25_r7uq8")
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_mask = 6
+collision_mask = 22
 
 [node name="AreaColisao" type="CollisionShape2D" parent="Area2D"]
 shape = ExtResource("3_76814")

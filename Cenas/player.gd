@@ -47,7 +47,9 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, speed *  delta)
 	
 	animated_sprite_2d.trigger_animation(velocity, direction, player_mode)
-#	
+	var collision = get_last_slide_collision()
+	if collision != null:
+		handle_movement_collision(collision)
 	move_and_slide()
 
 
@@ -98,4 +100,10 @@ func die():
 	else:
 		print("BIG TO SMALL")
 		
+func handle_movement_collision(collision: KinematicCollision2D):
+	if collision.get_collider() is Block:
+		print("block")
+		var collision_angle = rad_to_deg(collision.get_angle())
+		if roundf(collision_angle) == 180:
+			(collision.get_collider() as Block).bump(player_mode)
 	

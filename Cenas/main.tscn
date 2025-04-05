@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://dnnhwhjncfdrw"]
+[gd_scene load_steps=21 format=4 uid="uid://dnnhwhjncfdrw"]
 
 [ext_resource type="Texture2D" uid="uid://bh2i2pbd72n30" path="res://Assets Super Mario Bros/Sprites/GroundBlock.png" id="1_1n2rx"]
 [ext_resource type="Texture2D" uid="uid://8as4lix1a8pr" path="res://Assets Super Mario Bros/Sprites/HardBlock.png" id="2_eum7u"]
@@ -7,11 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://cq6tqakba8cj0" path="res://Assets Super Mario Bros/Sprites/Cloud1.png" id="5_x45lh"]
 [ext_resource type="PackedScene" uid="uid://744hr15pnlib" path="res://Cenas/Player.tscn" id="5_ysv62"]
 [ext_resource type="Texture2D" uid="uid://cv5q5jjpotegk" path="res://Assets Super Mario Bros/Sprites/MysteryBlock.png" id="6_g7515"]
-[ext_resource type="PackedScene" uid="uid://38h1qum7f1sw" path="res://goomba.tscn" id="7_a0urc"]
 [ext_resource type="Texture2D" uid="uid://b5sqfy41h20ks" path="res://Assets Super Mario Bros/Sprites/PipeTop.png" id="7_qr452"]
-[ext_resource type="PackedScene" uid="uid://cyquoidtt83d7" path="res://Cenas/koopa.tscn" id="7_rid34"]
 [ext_resource type="Texture2D" uid="uid://boxpmnaldgr7t" path="res://Assets Super Mario Bros/Sprites/backgroundForestt.png" id="7_sxgka"]
 [ext_resource type="Texture2D" uid="uid://cdp0d1a4cvakq" path="res://Assets Super Mario Bros/Sprites/PipeBottom.png" id="8_waahh"]
+[ext_resource type="PackedScene" uid="uid://c5sbisejg3nq4" path="res://Cenas/brick.tscn" id="11_pknck"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2ws8p"]
 texture = ExtResource("1_1n2rx")
@@ -75,27 +74,20 @@ rendering_quadrant_size = 17
 
 [node name="TextureRect" type="TextureRect" parent="TileMapLayer"]
 z_index = -31
-offset_left = -212.0
+offset_left = -220.0
 offset_top = -306.0
-offset_right = 4574.0
+offset_right = 4566.0
 offset_bottom = 142.0
 texture = ExtResource("7_sxgka")
 stretch_mode = 1
 
 [node name="Player" parent="." instance=ExtResource("5_ysv62")]
 position = Vector2(-181, 56)
+collision_mask = 22
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(181, -56)
 zoom = Vector2(2.75, 2.75)
 
-[node name="Enemies" type="Node" parent="."]
-
-[node name="Goomba" parent="Enemies" instance=ExtResource("7_a0urc")]
-position = Vector2(47, 4)
-
-[node name="Koopa" parent="Enemies" instance=ExtResource("7_rid34")]
-position = Vector2(135, 14)
-
-[node name="Koopa2" parent="Enemies" instance=ExtResource("7_rid34")]
-position = Vector2(218, -2)
+[node name="Brick" parent="." instance=ExtResource("11_pknck")]
+position = Vector2(-112, 10)
