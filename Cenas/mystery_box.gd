@@ -12,6 +12,7 @@ enum BonusType {
 #parte dos bonus
 const COIN_SCENE = preload("res://Cenas/coin.tscn")
 const SHROOM_SCENE = preload("res://Cenas/shroom.tscn")
+const SHOOTING_FLOWER_SCENE = preload("res://shooting_flower.tscn")
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @export var bonus_type: BonusType = BonusType.COIN
 @export var invisible: bool = false
@@ -56,4 +57,6 @@ func spawn_shroom():
 	get_tree().root.add_child(shroom)
 	
 func spawn_flower():
-	print("flower")
+	var flower = SHOOTING_FLOWER_SCENE.instantiate()
+	flower.global_position = global_position
+	get_tree().root.add_child(flower)

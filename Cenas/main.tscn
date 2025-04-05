@@ -104,6 +104,7 @@ horizontal_speed = 0
 
 [node name="StaticBody2D" parent="." instance=ExtResource("14_ak7px")]
 position = Vector2(-63, 10)
+bonus_type = 2
 
 [node name="LevelManager" type="Node" parent="." groups=["level_manager"]]
 script = ExtResource("15_qhywr")
