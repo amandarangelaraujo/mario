@@ -2,12 +2,16 @@ extends Block
 
 class_name Mystery_box
 
+
 enum BonusType {
 	COIN,
 	SHROOM,
 	FLOWER
 }
 
+#parte dos bonus
+const COIN_SCENE = preload("res://Cenas/coin.tscn")
+const SHROOM_SCENE = preload("res://Cenas/shroom.tscn")
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @export var bonus_type: BonusType = BonusType.COIN
 @export var invisible: bool = false
@@ -41,10 +45,15 @@ func make_empty():
 	animated_sprite_2d.play("empty")
 	
 func spawn_coin():
-	print("coin")
+	var coin = COIN_SCENE.instantiate()
+	coin.global_position = global_position + Vector2(0, -16)
+	get_tree().root.add_child(coin)
+	get_tree().get_first_node_in_group("level_manager").on_coin_collected()
 	
 func spawn_shroom():
-	print("shroom")
+	var shroom = SHROOM_SCENE.instantiate()
+	shroom.global_position = global_position
+	get_tree().root.add_child(shroom)
 	
 func spawn_flower():
 	print("flower")

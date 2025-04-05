@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://dnnhwhjncfdrw"]
+[gd_scene load_steps=25 format=4 uid="uid://dnnhwhjncfdrw"]
 
 [ext_resource type="Texture2D" uid="uid://bh2i2pbd72n30" path="res://Assets Super Mario Bros/Sprites/GroundBlock.png" id="1_1n2rx"]
 [ext_resource type="Texture2D" uid="uid://8as4lix1a8pr" path="res://Assets Super Mario Bros/Sprites/HardBlock.png" id="2_eum7u"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://cdp0d1a4cvakq" path="res://Assets Super Mario Bros/Sprites/PipeBottom.png" id="8_waahh"]
 [ext_resource type="PackedScene" uid="uid://c5sbisejg3nq4" path="res://Cenas/brick.tscn" id="11_pknck"]
 [ext_resource type="PackedScene" uid="uid://eoukksqlekia" path="res://Cenas/MysteryBox.tscn" id="14_ak7px"]
+[ext_resource type="Script" path="res://Cenas/level_manager.gd" id="15_qhywr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2ws8p"]
 texture = ExtResource("1_1n2rx")
@@ -103,3 +104,6 @@ horizontal_speed = 0
 
 [node name="StaticBody2D" parent="." instance=ExtResource("14_ak7px")]
 position = Vector2(-63, 10)
+
+[node name="LevelManager" type="Node" parent="." groups=["level_manager"]]
+script = ExtResource("15_qhywr")

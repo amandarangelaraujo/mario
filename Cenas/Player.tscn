@@ -281,7 +281,7 @@ animation = &"small_death"
 script = ExtResource("25_r7uq8")
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_mask = 22
+collision_mask = 54
 
 [node name="AreaColisao" type="CollisionShape2D" parent="Area2D"]
 shape = ExtResource("3_76814")

@@ -54,6 +54,7 @@ shoot={
 2d_physics/layer_3="enemy"
 2d_physics/layer_4="koopa_stomped"
 2d_physics/layer_5="obstacle"
+2d_physics/layer_6="bonus"
 
 [rendering]
 
