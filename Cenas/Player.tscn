@@ -108,8 +108,8 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("11_67nob")
 }],
-"loop": true,
-"name": &"shooting",
+"loop": false,
+"name": &"shoot",
 "speed": 10.0
 }, {
 "frames": [{
@@ -277,7 +277,7 @@ script = ExtResource("1_rsu7v")
 
 [node name="Animacao" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_vghjf")
-animation = &"small_to_shooting"
+animation = &"shoot"
 script = ExtResource("25_r7uq8")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -288,6 +288,9 @@ shape = ExtResource("3_76814")
 
 [node name="BodyColisao" type="CollisionShape2D" parent="."]
 shape = ExtResource("3_76814")
+
+[node name="ShootingPoint" type="Marker2D" parent="."]
+position = Vector2(8, -6)
 
 [connection signal="animation_finished" from="Animacao" to="Animacao" method="_on_animation_finished"]
 [connection signal="frame_changed" from="Animacao" to="Animacao" method="_on_frame_changed"]

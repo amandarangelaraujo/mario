@@ -18,7 +18,7 @@ enum PlayerMode {small, big, shooting}
 @export var run_speed_damping = 0.5
 @export var speed = 150
 @export var jump_velocity = -350
-
+@onready var shooting_point = $ShootingPoint
 @export_group("Stomping Enemies")
 @export var min_stomp_degree = 35
 @export var max_stomp_degree = 145
@@ -26,7 +26,7 @@ enum PlayerMode {small, big, shooting}
 
 const SMALL_MARIO_COLLISION_SHAPE = preload("res://resources/CollisionShapes/small_mario.tres")
 const BIG_MARIO_COLLISION_SHAPE = preload("res://resources/CollisionShapes/big_mario_collision_shape.tres")
-
+const FIREBALL_SCENE = preload("res://Cenas/fireball.tscn")
 var player_mode = PlayerMode.small
 const POINTS_LABEL_SCENE = preload("res://Cenas/points_label.tscn")
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -48,8 +48,12 @@ func _physics_process(delta: float) -> void:
 		velocity.x = lerp(velocity.x, speed * direction, run_speed_damping * delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed *  delta)
-	
-	animated_sprite_2d.trigger_animation(velocity, direction, player_mode)
+		
+	if Input.is_action_just_pressed("shoot") && player_mode == PlayerMode.shooting:
+		shoot()
+	else:
+		animated_sprite_2d.trigger_animation(velocity, direction, player_mode)
+		
 	var collision = get_last_slide_collision()
 	if collision != null:
 		handle_movement_collision(collision)
@@ -139,3 +143,12 @@ func big_to_small():
 	var animation_name = "small_to_big" if player_mode == PlayerMode.big else "small_to_shooting"
 	animated_sprite_2d.play(animation_name, 1.0, true)
 	set_collision_shapes(true)
+
+
+func shoot():
+	animated_sprite_2d.play("shoot")
+	set_physics_process(false)
+	var fireball = FIREBALL_SCENE.instantiate()
+	fireball.direction = sign(animated_sprite_2d.scale.x)
+	fireball.global_position = shooting_point.global_position
+	get_tree().root.add_child(fireball)
