@@ -23,6 +23,10 @@ enum PlayerMode {small, big, shooting}
 @export var min_stomp_degree = 35
 @export var max_stomp_degree = 145
 @export var stomp_y_velocity = -150
+@export_group("Camera syn")
+@export var camera_sync: Camera2D
+@export var should_camera_sync: bool = true
+@export_group((""))
 
 const SMALL_MARIO_COLLISION_SHAPE = preload("res://resources/CollisionShapes/small_mario.tres")
 const BIG_MARIO_COLLISION_SHAPE = preload("res://resources/CollisionShapes/big_mario_collision_shape.tres")
@@ -33,9 +37,19 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 func _physics_process(delta: float) -> void:
+	
+#	coloca limite no lado esquerdo da câmera
+	var camera_left_bound = camera_sync.global_position.x - camera_sync.get_viewport_rect().size.x /2 / camera_sync.zoom.x
+
+		
 	if not is_on_floor():
 		velocity.y += gravity * delta
 		
+	#coloca o limite do lado esquerdo da câmera
+	if global_position.x < camera_left_bound + 8 && sign(velocity.x) == -1:
+		velocity = Vector2.ZERO
+		return
+			
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
 		
@@ -58,7 +72,11 @@ func _physics_process(delta: float) -> void:
 	if collision != null:
 		handle_movement_collision(collision)
 	move_and_slide()
-
+	
+func _process(delta):
+	if global_position.x > camera_sync.global_position.x && should_camera_sync:
+		camera_sync.global_position.x = global_position.x
+	
 
 func _on_area_2d_area_entered(area):
 	if area is Enemy:

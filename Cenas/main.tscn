@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://dnnhwhjncfdrw"]
+[gd_scene load_steps=26 format=4 uid="uid://dnnhwhjncfdrw"]
 
 [ext_resource type="Texture2D" uid="uid://bh2i2pbd72n30" path="res://Assets Super Mario Bros/Sprites/GroundBlock.png" id="1_1n2rx"]
 [ext_resource type="Texture2D" uid="uid://8as4lix1a8pr" path="res://Assets Super Mario Bros/Sprites/HardBlock.png" id="2_eum7u"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://c5sbisejg3nq4" path="res://Cenas/brick.tscn" id="11_pknck"]
 [ext_resource type="PackedScene" uid="uid://eoukksqlekia" path="res://Cenas/MysteryBox.tscn" id="14_ak7px"]
 [ext_resource type="Script" path="res://Cenas/level_manager.gd" id="15_qhywr"]
+[ext_resource type="PackedScene" uid="uid://51ytejscq3nb" path="res://Cenas/pipe.tscn" id="16_vjmkp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2ws8p"]
 texture = ExtResource("1_1n2rx")
@@ -85,12 +86,9 @@ offset_bottom = 142.0
 texture = ExtResource("7_sxgka")
 stretch_mode = 1
 
-[node name="Player" parent="." instance=ExtResource("5_ysv62")]
+[node name="Player" parent="." node_paths=PackedStringArray("camera_sync") instance=ExtResource("5_ysv62")]
 position = Vector2(-181, 56)
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(181, -56)
-zoom = Vector2(2.75, 2.75)
+camera_sync = NodePath("../Camera2D")
 
 [node name="Brick" parent="." instance=ExtResource("11_pknck")]
 position = Vector2(-112, 10)
@@ -108,3 +106,9 @@ bonus_type = 2
 
 [node name="LevelManager" type="Node" parent="." groups=["level_manager"]]
 script = ExtResource("15_qhywr")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.75, 2.75)
+
+[node name="Pipe" parent="." instance=ExtResource("16_vjmkp")]
+position = Vector2(155, 40)
