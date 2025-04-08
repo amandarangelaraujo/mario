@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://ca5y46iahktj0"]
+
+[ext_resource type="Script" path="res://Cenas/zona_morte.gd" id="1_rbesj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v54l7"]
+size = Vector2(655, 20)
+
+[node name="zonaMorte" type="Area2D"]
+collision_layer = 32
+script = ExtResource("1_rbesj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(317.5, 0)
+shape = SubResource("RectangleShape2D_v54l7")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

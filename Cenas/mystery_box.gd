@@ -6,10 +6,12 @@ class_name Mystery_box
 enum BonusType {
 	COIN,
 	SHROOM,
-	FLOWER
+	FLOWER,
+	KOOPA
 }
 
 #parte dos bonus
+const KOOPA_SCENE = preload("res://Cenas/koopa.tscn")
 const COIN_SCENE = preload("res://Cenas/coin.tscn")
 const SHROOM_SCENE = preload("res://Cenas/shroom.tscn")
 const SHOOTING_FLOWER_SCENE = preload("res://shooting_flower.tscn")
@@ -40,6 +42,8 @@ func bump(player_mode: Player.PlayerMode):
 			spawn_shroom()
 		BonusType.FLOWER:
 			spawn_flower()
+		BonusType.FLOWER:
+			spawn_koopa()
 
 func make_empty():
 	is_empty = true
@@ -60,3 +64,8 @@ func spawn_flower():
 	var flower = SHOOTING_FLOWER_SCENE.instantiate()
 	flower.global_position = global_position
 	get_tree().root.add_child(flower)
+	
+func spawn_koopa():
+	var KOOPA = KOOPA_SCENE.instantiate()
+	KOOPA.global_position = global_position
+	get_tree().root.add_child(KOOPA)

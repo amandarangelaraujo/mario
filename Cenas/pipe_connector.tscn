@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwh22yshmu8ca"]
+
+[ext_resource type="Script" path="res://Cenas/pipe_connector.gd" id="1_d3cte"]
+[ext_resource type="Texture2D" uid="uid://8hx0hwj6028f" path="res://Assets Super Mario Bros/Sprites/PipeConnection.png" id="2_fi86o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cnnwo"]
+size = Vector2(12, 6)
+
+[node name="PipeConnector" type="StaticBody2D"]
+collision_layer = 16
+collision_mask = 5
+script = ExtResource("1_d3cte")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_fi86o")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(2, -7, 2, -7, -32, -8, -31, 23, -18, 23, 2, 22, 3, 24, 30, 24, 30, -24, 2, -24)
+
+[node name="Entrance" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entrance"]
+position = Vector2(-31, 21)
+shape = SubResource("RectangleShape2D_cnnwo")
+
+[connection signal="body_entered" from="Entrance" to="." method="_on_entrance_body_entered"]

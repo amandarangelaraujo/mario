@@ -1,0 +1,101 @@
+[gd_scene load_steps=13 format=4 uid="uid://c3wfyah5bmvk7"]
+
+[ext_resource type="Texture2D" uid="uid://dbhkvad8kmca" path="res://Assets Super Mario Bros/Sprites/UndergroundBlock.png" id="1_1nt07"]
+[ext_resource type="PackedScene" uid="uid://tic4d7r32yrk" path="res://Cenas/collectable_coin.tscn" id="1_xyckd"]
+[ext_resource type="Texture2D" uid="uid://dtkrgfs1x5qrr" path="res://Assets Super Mario Bros/Sprites/UndergroundBrick.png" id="2_n024n"]
+[ext_resource type="PackedScene" uid="uid://744hr15pnlib" path="res://Cenas/Player.tscn" id="3_la88l"]
+[ext_resource type="PackedScene" uid="uid://dwh22yshmu8ca" path="res://Cenas/pipe_connector.tscn" id="4_w24pj"]
+[ext_resource type="PackedScene" uid="uid://51ytejscq3nb" path="res://Cenas/pipe.tscn" id="5_14oj0"]
+[ext_resource type="Script" path="res://Cenas/level_manager.gd" id="6_rd0qq"]
+[ext_resource type="AudioStream" uid="uid://v4ntuy6bj02e" path="res://sons/ponto.wav" id="8_b2um0"]
+[ext_resource type="PackedScene" uid="uid://xwj64i30tkvv" path="res://Cenas/ui.tscn" id="8_yy60r"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8f6bd"]
+texture = ExtResource("1_1nt07")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_654qa"]
+texture = ExtResource("2_n024n")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_phjlq"]
+physics_layer_0/collision_layer = 2
+sources/0 = SubResource("TileSetAtlasSource_8f6bd")
+sources/1 = SubResource("TileSetAtlasSource_654qa")
+
+[node name="Main" type="Node"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -211.0
+offset_top = -123.0
+offset_right = 220.0
+offset_bottom = 124.0
+color = Color(0.0093175, 0.0093175, 0.0093175, 1)
+
+[node name="CollectableCoin" parent="ColorRect" instance=ExtResource("1_xyckd")]
+position = Vector2(-127, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.75, 2.75)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD3//j/AQAAAAAAAAD4//j/AQAAAAAAAAD5//j/AQAAAAAAAAD6//j/AQAAAAAAAAD7//j/AQAAAAAAAAD8//j/AQAAAAAAAAD9//j/AQAAAAAAAAD+//j/AQAAAAAAAAD///j/AQAAAAAAAAAAAPj/AQAAAAAAAAABAPj/AQAAAAAAAAACAPj/AQAAAAAAAAADAPj/AQAAAAAAAAAEAPj/AQAAAAAAAAAFAPj/AQAAAAAAAAAGAPj/AQAAAAAAAAAHAPj/AQAAAAAAAAAIAPj/AQAAAAAAAAAIAPn/AQAAAAAAAAD3//n/AQAAAAAAAAD4//n/AQAAAAAAAAD5//n/AQAAAAAAAAD6//n/AQAAAAAAAAD7//n/AQAAAAAAAAD8//n/AQAAAAAAAAD9//n/AQAAAAAAAAD+//n/AQAAAAAAAAD///n/AQAAAAAAAAAAAPn/AQAAAAAAAAABAPn/AQAAAAAAAAACAPn/AQAAAAAAAAADAPn/AQAAAAAAAAAEAPn/AQAAAAAAAAAFAPn/AQAAAAAAAAAGAPn/AQAAAAAAAAAHAPn/AQAAAAAAAAD3/wEAAAAAAAAAAAD3/wIAAAAAAAAAAAD3/wMAAAAAAAAAAAD3/wQAAAAAAAAAAAD2/wQAAAAAAAAAAAD1/wQAAAAAAAAAAAD0/wQAAAAAAAAAAADz/wQAAAAAAAAAAADz/wMAAAAAAAAAAADz/wIAAAAAAAAAAADz/wEAAAAAAAAAAADz/wAAAAAAAAAAAADz////AAAAAAAAAADz//7/AAAAAAAAAADz//3/AAAAAAAAAADz//z/AAAAAAAAAADz//v/AAAAAAAAAADz//r/AAAAAAAAAADz//n/AAAAAAAAAADz//j/AAAAAAAAAADz/wUAAAAAAAAAAADz/wYAAAAAAAAAAAD0/wYAAAAAAAAAAAD0/wUAAAAAAAAAAAD1/wUAAAAAAAAAAAD1/wYAAAAAAAAAAAD2/wYAAAAAAAAAAAD2/wUAAAAAAAAAAAD3/wUAAAAAAAAAAAD3/wYAAAAAAAAAAAD4/wYAAAAAAAAAAAD4/wUAAAAAAAAAAAD4/wQAAAAAAAAAAAD4/wMAAAAAAAAAAAD4/wIAAAAAAAAAAAD4/wEAAAAAAAAAAAD5/wEAAAAAAAAAAAD5/wIAAAAAAAAAAAD5/wMAAAAAAAAAAAD5/wQAAAAAAAAAAAD5/wUAAAAAAAAAAAD5/wYAAAAAAAAAAAD6/wYAAAAAAAAAAAD6/wUAAAAAAAAAAAD6/wQAAAAAAAAAAAD6/wMAAAAAAAAAAAD6/wIAAAAAAAAAAAD6/wEAAAAAAAAAAAD7/wEAAAAAAAAAAAD7/wIAAAAAAAAAAAD7/wMAAAAAAAAAAAD7/wQAAAAAAAAAAAD7/wUAAAAAAAAAAAD7/wYAAAAAAAAAAAD8/wYAAAAAAAAAAAD8/wUAAAAAAAAAAAD8/wQAAAAAAAAAAAD8/wMAAAAAAAAAAAD8/wIAAAAAAAAAAAD8/wEAAAAAAAAAAAD9/wEAAAAAAAAAAAD9/wIAAAAAAAAAAAD9/wMAAAAAAAAAAAD9/wQAAAAAAAAAAAD9/wUAAAAAAAAAAAD9/wYAAAAAAAAAAAD+/wYAAAAAAAAAAAD+/wUAAAAAAAAAAAD+/wQAAAAAAAAAAAD+/wMAAAAAAAAAAAD+/wIAAAAAAAAAAAD+/wEAAAAAAAAAAAD//wEAAAAAAAAAAAD//wIAAAAAAAAAAAD//wMAAAAAAAAAAAD//wQAAAAAAAAAAAD//wUAAAAAAAAAAAD//wYAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAEAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAAAAAAAAAABAAQAAAAAAAAAAAABAAUAAAAAAAAAAAABAAYAAAAAAAAAAAACAAYAAAAAAAAAAAACAAUAAAAAAAAAAAACAAQAAAAAAAAAAAACAAMAAAAAAAAAAAACAAIAAAAAAAAAAAACAAEAAAAAAAAAAAADAAEAAAAAAAAAAAADAAIAAAAAAAAAAAADAAMAAAAAAAAAAAADAAQAAAAAAAAAAAADAAUAAAAAAAAAAAADAAYAAAAAAAAAAAAEAAYAAAAAAAAAAAAEAAUAAAAAAAAAAAAEAAQAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAEAAAAAAAAAAAAFAAEAAAAAAAAAAAAFAAIAAAAAAAAAAAAFAAMAAAAAAAAAAAAFAAQAAAAAAAAAAAAFAAUAAAAAAAAAAAAFAAYAAAAAAAAAAAAGAAYAAAAAAAAAAAAGAAUAAAAAAAAAAAAGAAQAAAAAAAAAAAAGAAMAAAAAAAAAAAAGAAIAAAAAAAAAAAAGAAEAAAAAAAAAAAAHAAEAAAAAAAAAAAAHAAIAAAAAAAAAAAAHAAMAAAAAAAAAAAAHAAQAAAAAAAAAAAAHAAUAAAAAAAAAAAAHAAYAAAAAAAAAAAAIAAYAAAAAAAAAAAAIAAUAAAAAAAAAAAAIAAQAAAAAAAAAAAAIAAMAAAAAAAAAAAAIAAIAAAAAAAAAAAAIAAEAAAAAAAAAAAAJAAQAAAAAAAAAAAAJAAUAAAAAAAAAAAAJAAYAAAAAAAAAAAAKAAYAAAAAAAAAAAAKAAUAAAAAAAAAAAAKAAQAAAAAAAAAAAALAAQAAAAAAAAAAAALAAUAAAAAAAAAAAALAAYAAAAAAAAAAAAMAAYAAAAAAAAAAAAMAAUAAAAAAAAAAAAMAAQAAAAAAAAAAAAMAAMAAAAAAAAAAAAMAAIAAAAAAAAAAAAMAAEAAAAAAAAAAAAMAAAAAAAAAAAAAAAMAP//AAAAAAAAAAAMAP7/AAAAAAAAAAAMAP3/AAAAAAAAAAAMAPz/AAAAAAAAAAAMAPv/AAAAAAAAAAAMAPr/AAAAAAAAAAAMAPn/AAAAAAAAAAAMAPj/AAAAAAAAAAA=")
+tile_set = SubResource("TileSet_phjlq")
+
+[node name="Player" parent="." node_paths=PackedStringArray("camera_sync") instance=ExtResource("3_la88l")]
+position = Vector2(-171, -90)
+camera_sync = NodePath("../Camera2D")
+should_camera_sync = false
+
+[node name="PipeConnector" parent="." instance=ExtResource("4_w24pj")]
+position = Vector2(116, -7)
+return_point = Vector2(224, -33)
+
+[node name="Pipe" parent="." instance=ExtResource("5_14oj0")]
+texture_repeat = 2
+position = Vector2(133, -120)
+height = 117
+
+[node name="LevelManager" type="Node" parent="." node_paths=PackedStringArray("ui", "player") groups=["level_manager"]]
+script = ExtResource("6_rd0qq")
+ui = NodePath("../UI")
+player = NodePath("../Player")
+
+[node name="Coins" type="Node" parent="."]
+
+[node name="CollectableCoin" parent="Coins" instance=ExtResource("1_xyckd")]
+position = Vector2(-78, -50)
+
+[node name="CollectableCoin2" parent="Coins" instance=ExtResource("1_xyckd")]
+position = Vector2(-19, -10)
+
+[node name="CollectableCoin2" parent="Coins/CollectableCoin2" instance=ExtResource("1_xyckd")]
+position = Vector2(9, -19)
+
+[node name="CollectableCoin2" parent="Coins/CollectableCoin2/CollectableCoin2" instance=ExtResource("1_xyckd")]
+position = Vector2(8, -24)
+
+[node name="CollectableCoin2" parent="Coins/CollectableCoin2/CollectableCoin2/CollectableCoin2" instance=ExtResource("1_xyckd")]
+position = Vector2(-19, -11)
+
+[node name="CollectableCoin3" parent="Coins" instance=ExtResource("1_xyckd")]
+position = Vector2(-57, -9)
+
+[node name="CollectableCoin4" parent="Coins" instance=ExtResource("1_xyckd")]
+position = Vector2(-39, 6)
+
+[node name="CollectableCoin5" parent="Coins" instance=ExtResource("1_xyckd")]
+position = Vector2(-74, -25)
+
+[node name="CollectableCoin6" parent="Coins" instance=ExtResource("1_xyckd")]
+position = Vector2(-43, -55)
+
+[node name="CollectableCoin7" parent="Coins" instance=ExtResource("1_xyckd")]
+position = Vector2(-63, -66)
+
+[node name="UI" parent="." instance=ExtResource("8_yy60r")]
+
+[node name="AudioTema" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_b2um0")

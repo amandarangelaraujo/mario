@@ -28,6 +28,7 @@ enum PlayerMode {small, big, shooting}
 @export var should_camera_sync: bool = true
 @export_group((""))
 
+const PIPE_ENTER_THRESHOLD = 10
 const SMALL_MARIO_COLLISION_SHAPE = preload("res://resources/CollisionShapes/small_mario.tres")
 const BIG_MARIO_COLLISION_SHAPE = preload("res://resources/CollisionShapes/big_mario_collision_shape.tres")
 const FIREBALL_SCENE = preload("res://Cenas/fireball.tscn")
@@ -35,7 +36,11 @@ var player_mode = PlayerMode.small
 const POINTS_LABEL_SCENE = preload("res://Cenas/points_label.tscn")
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-
+func _ready():
+	if SceneData.return_point != null && SceneData.return_point != Vector2.ZERO:
+		global_position = SceneData.return_point
+	#$"../AudioBackground".play()
+	
 func _physics_process(delta: float) -> void:
 	
 #	coloca limite no lado esquerdo da câmera
@@ -51,6 +56,7 @@ func _physics_process(delta: float) -> void:
 		return
 			
 	if Input.is_action_just_pressed("jump") and is_on_floor():
+		#$"../AudioPulo".play()
 		velocity.y = jump_velocity
 		
 	if Input.is_action_just_released("jump") and velocity.y<0:
@@ -149,7 +155,15 @@ func handle_movement_collision(collision: KinematicCollision2D):
 		var collision_angle = rad_to_deg(collision.get_angle())
 		if roundf(collision_angle) == 180:
 			(collision.get_collider() as Block).bump(player_mode)
-	
+	if collision.get_collider() is Pipe:
+		var collision_angle = rad_to_deg(collision.get_angle())
+		#o ultimo end vê se você está no centro do pipe
+		if roundf(collision_angle) == 0 && Input.is_action_just_pressed("down") && absf(collision.get_collider().position.x - position.x < PIPE_ENTER_THRESHOLD && collision.get_collider().is_traversable):
+			print("GO DOWN")
+			handle_pipe_collision()
+			
+			
+			
 func set_collision_shapes(is_small: bool):
 	var collision_shape = SMALL_MARIO_COLLISION_SHAPE if is_small else BIG_MARIO_COLLISION_SHAPE
 	area_colisao.set_deferred("shape", collision_shape)
@@ -161,8 +175,22 @@ func big_to_small():
 	var animation_name = "small_to_big" if player_mode == PlayerMode.big else "small_to_shooting"
 	animated_sprite_2d.play(animation_name, 1.0, true)
 	set_collision_shapes(true)
-
-
+	
+func handle_pipe_collision():
+	set_physics_process(false)
+	z_index = -3
+	var pipe_tween = get_tree().create_tween()
+	pipe_tween.tween_property(self, "position", position + Vector2(0, 32), 1)
+	pipe_tween.tween_callback(switch_to_underground)
+	
+func switch_to_underground():
+	var level_manager = get_tree().get_first_node_in_group("level_manager")
+	SceneData.player_mode = player_mode
+	#SceneData.coins = level_manager.coins
+	#SceneData.points = level_manager.points 
+	get_tree().change_scene_to_file("res://Cenas/underground.tscn")
+	
+	
 func shoot():
 	animated_sprite_2d.play("shoot")
 	set_physics_process(false)
@@ -170,3 +198,18 @@ func shoot():
 	fireball.direction = sign(animated_sprite_2d.scale.x)
 	fireball.global_position = shooting_point.global_position
 	get_tree().root.add_child(fireball)
+
+func handle_pipe_connector_entrance_collision():
+	
+	set_physics_process(false)
+	z_index = -3
+	var pipe_tween = get_tree().create_tween()
+	pipe_tween.tween_property(self, "position", position + Vector2(0, 32), 1)
+	pipe_tween.tween_callback(switch_to_main)
+func switch_to_main():
+	var level_manager = get_tree().get_first_node_in_group("level_manager")
+	SceneData.player_mode = player_mode
+	#SceneData.coins = level_manager.coins
+	#SceneData.points = level_manager.points 
+	get_tree().change_scene_to_file("res://Cenas/main.tscn")
+	
