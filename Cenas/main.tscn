@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=4 uid="uid://dnnhwhjncfdrw"]
+[gd_scene load_steps=41 format=4 uid="uid://dnnhwhjncfdrw"]
 
 [ext_resource type="Texture2D" uid="uid://bh2i2pbd72n30" path="res://Assets Super Mario Bros/Sprites/GroundBlock.png" id="1_1n2rx"]
 [ext_resource type="Script" path="res://Cenas/main.gd" id="1_orx8c"]
@@ -15,17 +15,19 @@
 [ext_resource type="Texture2D" uid="uid://cdp0d1a4cvakq" path="res://Assets Super Mario Bros/Sprites/PipeBottom.png" id="8_waahh"]
 [ext_resource type="Texture2D" uid="uid://pq7bftqoye7y" path="res://Assets Super Mario Bros/Sprites/tileTest.png" id="10_yhuqg"]
 [ext_resource type="PackedScene" uid="uid://c5sbisejg3nq4" path="res://Cenas/brick.tscn" id="11_pknck"]
-[ext_resource type="PackedScene" uid="uid://3h5kdrxaw215" path="res://Cenas/flag.tscn" id="13_rh2c4"]
 [ext_resource type="PackedScene" uid="uid://eoukksqlekia" path="res://Cenas/MysteryBox.tscn" id="14_ak7px"]
 [ext_resource type="Script" path="res://Cenas/level_manager.gd" id="15_qhywr"]
 [ext_resource type="PackedScene" uid="uid://51ytejscq3nb" path="res://Cenas/pipe.tscn" id="16_vjmkp"]
 [ext_resource type="PackedScene" uid="uid://xwj64i30tkvv" path="res://Cenas/ui.tscn" id="17_spt4a"]
 [ext_resource type="AudioStream" uid="uid://v4ntuy6bj02e" path="res://sons/ponto.wav" id="20_k6lyc"]
 [ext_resource type="PackedScene" uid="uid://tic4d7r32yrk" path="res://Cenas/collectable_coin.tscn" id="21_bi7kp"]
+[ext_resource type="AudioStream" uid="uid://c3qic5pphjpht" path="res://sons/super-mario-death-sound-sound-effect (mp3cut.net).wav" id="22_d0l3b"]
 [ext_resource type="AudioStream" uid="uid://bpkm502mqnk8n" path="res://sons/maro-jump-sound-effect_1.wav" id="23_234nd"]
 [ext_resource type="AudioStream" uid="uid://x0cjhje7ymjh" path="res://sons/backsound.wav" id="24_jsoh1"]
 [ext_resource type="PackedScene" uid="uid://qp276xo78mib" path="res://Cenas/castelo.tscn" id="25_pbpvt"]
 [ext_resource type="PackedScene" uid="uid://ca5y46iahktj0" path="res://Cenas/zona_morte.tscn" id="26_b1ysv"]
+[ext_resource type="PackedScene" uid="uid://daqdh0uxlosa4" path="res://Cenas/hud_2.tscn" id="26_oe858"]
+[ext_resource type="FontFile" uid="uid://dm3ch1vmt4ixr" path="res://Assets Super Mario Bros/Fonts/font.ttf" id="27_orwci"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u5ggd"]
 texture = ExtResource("1_1n2rx")
@@ -4338,16 +4340,16 @@ rendering_quadrant_size = 17
 
 [node name="TextureRect" type="TextureRect" parent="TileMapLayer"]
 z_index = -31
-offset_left = -225.0
-offset_top = -304.0
-offset_right = 4561.0
-offset_bottom = 144.0
+offset_left = -226.0
+offset_top = -303.0
+offset_right = 4560.0
+offset_bottom = 145.0
 texture = ExtResource("7_sxgka")
 stretch_mode = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="CollectableCoin" parent="TileMapLayer/TextureRect" instance=ExtResource("21_bi7kp")]
-position = Vector2(1026.86, 361.848)
+position = Vector2(1034, 355)
 
 [node name="CollectableCoin2" parent="TileMapLayer/TextureRect" instance=ExtResource("21_bi7kp")]
 position = Vector2(1521, 311)
@@ -4402,13 +4404,11 @@ height = 66
 [node name="UI" parent="." instance=ExtResource("17_spt4a")]
 visible = false
 
-[node name="AudioPonto" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("20_k6lyc")
-
 [node name="CollectableCoin" parent="." instance=ExtResource("21_bi7kp")]
 position = Vector2(-144.105, 36.5644)
 
 [node name="AudioTema" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-22, -6)
 stream = ExtResource("20_k6lyc")
 volume_db = 22.195
 
@@ -4433,21 +4433,25 @@ collision_mask = 11
 [node name="CollectableCoin" parent="Coins" instance=ExtResource("21_bi7kp")]
 position = Vector2(68, 21)
 
-[node name="CollectableCoin" parent="Coins/CollectableCoin" instance=ExtResource("21_bi7kp")]
-position = Vector2(309.721, -70.3375)
-
 [node name="CollectableCoin2" parent="Coins" instance=ExtResource("21_bi7kp")]
 position = Vector2(1277, 23)
 
-[node name="CollectableCoin" parent="Coins/CollectableCoin2" instance=ExtResource("21_bi7kp")]
-position = Vector2(17.3776, -17.876)
+[node name="CollectableCoin3" parent="Coins" instance=ExtResource("21_bi7kp")]
+position = Vector2(377.721, -49.3375)
 
-[node name="Flag" parent="." instance=ExtResource("13_rh2c4")]
-position = Vector2(49, -15)
+[node name="CollectableCoin4" parent="Coins" instance=ExtResource("21_bi7kp")]
+position = Vector2(1294.38, 5.124)
+
+[node name="AudioMorte" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(23, 23)
+stream = ExtResource("22_d0l3b")
 
 [node name="AudioPulo" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("23_234nd")
 volume_db = -18.39
+
+[node name="AudioPonto" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("20_k6lyc")
 
 [node name="AudioBackground" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(23, 23)
@@ -4458,3 +4462,36 @@ position = Vector2(1479, 10)
 
 [node name="zonaMorte" parent="." instance=ExtResource("26_b1ysv")]
 position = Vector2(928, 132)
+
+[node name="HUD2" parent="." instance=ExtResource("26_oe858")]
+visible = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
+scale = Vector2(6, 3)
+transform = Transform2D(6, 0, 0, 3, 0, 0)
+
+[node name="Pontos" type="Label" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_right = 0.353
+anchor_bottom = 0.235
+offset_top = -1.0
+offset_right = 64.0
+offset_bottom = 22.0
+size_flags_vertical = 0
+text = "0000"
+metadata/_edit_use_anchors_ = true
+
+[node name="CoinsLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -93.0
+offset_top = 20.0
+offset_right = 108.0
+offset_bottom = 59.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("27_orwci")
+theme_override_font_sizes/font_size = 29
+text = "SCORE: 00000"
+metadata/_edit_use_anchors_ = true

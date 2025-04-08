@@ -1,9 +1,9 @@
-extends Node
+extends CanvasLayer
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	SceneData.current_level = "fase1"
+	SceneData.current_level = "underground"
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

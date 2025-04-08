@@ -7,3 +7,4 @@ func _on_body_entered(body):
 		queue_free()
 		get_tree().get_first_node_in_group("level_manager").on_coin_collected()
 		$AudioPonto.play()
+		body.add_coin(1)

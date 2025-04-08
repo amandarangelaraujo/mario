@@ -28,6 +28,7 @@ enum PlayerMode {small, big, shooting}
 @export var should_camera_sync: bool = true
 @export_group((""))
 
+var coins = 0
 const PIPE_ENTER_THRESHOLD = 10
 const SMALL_MARIO_COLLISION_SHAPE = preload("res://resources/CollisionShapes/small_mario.tres")
 const BIG_MARIO_COLLISION_SHAPE = preload("res://resources/CollisionShapes/big_mario_collision_shape.tres")
@@ -35,11 +36,17 @@ const FIREBALL_SCENE = preload("res://Cenas/fireball.tscn")
 var player_mode = PlayerMode.small
 const POINTS_LABEL_SCENE = preload("res://Cenas/points_label.tscn")
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+@onready var labelCoins = $"../CanvasLayer/Pontos"
 
 func _ready():
 	if SceneData.return_point != null && SceneData.return_point != Vector2.ZERO:
 		global_position = SceneData.return_point
-	#$"../AudioBackground".play()
+	$"../AudioBackground".play()
+	labelCoins.text = str(0000)
+	
+func add_coin(value):
+	coins += value
+	labelCoins.text = str(coins)	
 	
 func _physics_process(delta: float) -> void:
 	
@@ -56,7 +63,7 @@ func _physics_process(delta: float) -> void:
 		return
 			
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		#$"../AudioPulo".play()
+		$"../AudioPulo".play()
 		velocity.y = jump_velocity
 		
 	if Input.is_action_just_released("jump") and velocity.y<0:
@@ -101,12 +108,14 @@ func handle_enemy_collision(enemy: Enemy):
 	if is_instance_of(enemy, Koopa) and (enemy as Koopa).in_a_shell:
 		(enemy as Koopa).on_stomp(global_position)
 		spawn_points_label(enemy)
+		add_coin(100)
 	else:
 		var angle_of_collision = rad_to_deg(position.angle_to_point(enemy.position))
 		if angle_of_collision > min_stomp_degree && max_stomp_degree > angle_of_collision:
 			enemy.die()
 			on_enemy_stomped()
 			spawn_points_label(enemy)
+			add_coin(100)
 		else:
 			die()
 			
@@ -141,7 +150,9 @@ func die():
 		set_collision_layer_value(1, false)
 		set_collision_mask_value(3, false)
 		set_physics_process(false)
-		
+		$"../AudioBackground".stop()
+		$"../AudioMorte".play()
+		await $"../AudioMorte".finished
 		var death_tween = get_tree().create_tween()
 		death_tween.tween_property(self, "position", position + Vector2(0, -48), .5)
 		death_tween.chain().tween_property(self, "position", position + Vector2(0, 256), 1)
